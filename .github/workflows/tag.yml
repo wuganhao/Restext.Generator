@@ -16,7 +16,7 @@ jobs:
     - name: Build
       run: |
         export
-        export Tag=${#github_ref/refs\/tags\//}
+        export Tag=${github_ref/#refs\/tags\//}
         export Version=${Tag/%-*/}
         export InformationalVersion="$Tag+$github_sha"
         export PackageVersion=Tag

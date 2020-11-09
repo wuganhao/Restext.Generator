@@ -19,11 +19,13 @@
 
   <ItemGroup>
     <None Update="restext.standalone.compiler.props">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>build</PackagePath>
     </None>
     <None Update="restext.standalone.compiler.targets">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+      <Pack>True</Pack>
+      <PackagePath>build</PackagePath>
+  </None>
   </ItemGroup>
 
 </Project>

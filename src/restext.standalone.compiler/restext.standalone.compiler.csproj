@@ -2,15 +2,16 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <IsPackable>True</IsPackable>
     <PackageId>Restext.Standalone.Compiler</PackageId>
     <Authors>Wu, Ganhao&lt;wuganhao@hotmail.com&gt;</Authors>
     <Title>Standalone compiler for *.restext</Title>
+    <LangVersion>8.0</LangVersion>
     <PackageDescription>This package compiles all *.restext as *.resources at the same folder</PackageDescription>
     <IsTool>True</IsTool>
     <BuildOutputTargetFolder>build</BuildOutputTargetFolder>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <!--<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,14 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="restext.standalone.compiler.props">
-      <Pack>True</Pack>
-      <PackagePath>build</PackagePath>
-    </None>
-    <None Update="restext.standalone.compiler.targets">
-      <Pack>True</Pack>
-      <PackagePath>build</PackagePath>
-  </None>
+    <None Update="restext.standalone.compiler.props" IncludeInPackage="True" Pack="True" PackagePath="build\" />
+    <None Update="restext.standalone.compiler.targets" IncludeInPackage="True" Pack="True" PackagePath="build\" />
   </ItemGroup>
 
 </Project>

@@ -16,14 +16,14 @@ jobs:
     - name: Build
       run: |
         export
-        export Tag=${github_ref/#refs\/tags\//}
+        export Tag=${GITHUB_REF/#refs\/tags\//}
         export Version=${Tag/%-*/}
-        export InformationalVersion="$Tag+$github_sha"
+        export InformationalVersion="$Tag+$GITHUB_SHA"
         export PackageVersion=Tag
         echo "Version: $Version"
         echo "Informational Version: $InformationalVersion"
         echo "Package Version: $PackageVersion"
-        dotnet pack --configuration release src/GitMirror.sln -o dist -p:AssemblyVersion=$Version -p:FileVersion=$Version -p:InformationalVersion=$InformationalVersion -p:PackageVersion=$Tag
+        dotnet pack --configuration release src/restext.compiler.sln -o dist -p:AssemblyVersion=$Version -p:FileVersion=$Version -p:InformationalVersion=$InformationalVersion -p:PackageVersion=$Tag
 
     - name: Push
       run: |

@@ -14,10 +14,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@1.0.0
+      uses: actions/checkout@v2
 
     - name: Setup .NET Core CLI
       uses: actions/setup-dotnet@v1.1.0
 
     - name: Build
-      run: dotnet pack --configuration release src/GitMirror.sln -p:Version=1.0.0 --version-suffix "build.${{ github.run_number }}"
+      run: dotnet pack --configuration release src/restext.compiler.sln -p:Version=1.0.0 --version-suffix "build.${{ github.run_number }}" -o dist

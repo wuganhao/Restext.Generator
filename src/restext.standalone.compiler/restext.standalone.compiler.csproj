@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <IsPackable>True</IsPackable>
+    <PackageId>Restext.Standalone.Compiler</PackageId>
+    <Authors>Wu, Ganhao&lt;wuganhao@hotmail.com&gt;</Authors>
+    <Title>Standalone compiler for *.restext</Title>
+    <PackageDescription>This package compiles all *.restext as *.resources at the same folder</PackageDescription>
+    <IsTool>True</IsTool>
+    <BuildOutputTargetFolder>build</BuildOutputTargetFolder>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="restext.standalone.compiler.props">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="restext.standalone.compiler.targets">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

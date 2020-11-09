@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <RestextStandaloneCompilerAssembly>$(MSBuildThisFileDirectory)\restext.standalone.compiler.dll</RestextStandaloneCompilerAssembly>
+  </PropertyGroup>
+  <UsingTask AssemblyFile="$(RestextStandaloneCompilerAssembly)" TaskName="RestextStandaloneCompiler" />
+  <PropertyGroup>
+    <DefaultCulture>en</DefaultCulture>
+  </PropertyGroup>
+  <Target Name="CollectRestextFiles" BeforeTargets="CoreBuild">
+    <ItemGroup>
+      <RestextFiles Include="@(Content)" Condition="'%(Extension)' == '.restext'" />
+      <RestextFiles Include="@(Resource)" Condition="'%(Extension)' == '.restext'" />
+    </ItemGroup>
+  </Target>
+  <Target Name="CompileRestextFiles" BeforeTargets="CoreBuild" DependsOnTargets="CollectRestextFiles">
+    <RestextStandaloneCompiler Sources="@(RestextFiles)" DefaultCulture="$(DefaultCulture)"/>
+  </Target>
+</Project>

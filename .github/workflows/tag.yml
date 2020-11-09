@@ -19,7 +19,7 @@ jobs:
         export Tag=${GITHUB_REF/#refs\/tags\//}
         export Version=${Tag/%-*/}
         export InformationalVersion="$Tag+$GITHUB_SHA"
-        export PackageVersion=Tag
+        export PackageVersion=$Tag
         echo "Version: $Version"
         echo "Informational Version: $InformationalVersion"
         echo "Package Version: $PackageVersion"
@@ -27,7 +27,7 @@ jobs:
 
     - name: Push
       run: |
-        for f in dist\*.nupkg; do
+        for f in dist/*.nupkg; do
           dotnet nuget push --api-key ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json dist/$f;
         done
 

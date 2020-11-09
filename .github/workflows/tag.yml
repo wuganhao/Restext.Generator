@@ -28,6 +28,6 @@ jobs:
     - name: Push
       run: |
         for f in dist/*.nupkg; do
-          dotnet nuget push --api-key ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json dist/$f;
+          dotnet nuget push --api-key ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json $f;
         done
 

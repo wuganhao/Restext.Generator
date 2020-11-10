@@ -19,13 +19,14 @@ namespace WuGanhao.Restext.Compiler {
 
                 string resources = Path.ChangeExtension(restext, ".resources");
 
-                FileStream ous = new FileStream(resources, FileMode.Create, FileAccess.Write, FileShare.Read);
+                this.Log.LogMessage($"Generating {resources} ...");
+                if (File.Exists(resources)) File.Delete(resources);
+                FileStream ous = new FileStream(resources, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
                 using ResourceWriter writer = new ResourceWriter(ous);
                 StreamReader reader = new StreamReader(restext);
 
                 string line = null;
                 long lIdx = 0;
-                this.Log.LogMessage($"Generating {resources} ...");
                 while(null != (line = reader.ReadLine())) {
                     lIdx ++;
                     int idx = line.IndexOf('=');
@@ -49,6 +50,7 @@ namespace WuGanhao.Restext.Compiler {
                         string folder = Path.GetDirectoryName(resources);
                         string targetPath = Path.Combine(folder, $"{fileName}.resources");
                         this.Log.LogMessage($"Generating {targetPath} ...");
+                        if (File.Exists(targetPath)) File.Delete(targetPath);
                         File.Copy(resources, targetPath);
                     }
                 }

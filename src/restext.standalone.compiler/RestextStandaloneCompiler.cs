@@ -11,7 +11,7 @@ namespace WuGanhao.Restext.Compiler {
         public override bool Execute() {
             if (this.Sources == null) return true;
 
-            foreach(TaskItem item in this.Sources) {
+            foreach(ITaskItem item in this.Sources) {
                 string restext = item.ItemSpec;
                 if (!File.Exists(restext)) {
                     this.Log.LogError($"Input file {restext} not found!");

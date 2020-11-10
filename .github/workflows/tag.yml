@@ -44,4 +44,6 @@ jobs:
 
     - name: Push
       run: |
-        Get-ChildItem -Filter dist\*.nupkg | dotnet nuget push --api-key ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json  $_.Name
+        Get-ChildItem -Filter dist\*.nupkg | ForEach-Object {
+            dotnet nuget push --api-key ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json $_
+        }

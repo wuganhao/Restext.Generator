@@ -3,6 +3,7 @@ using Microsoft.Build.Utilities;
 using System;
 using System.IO;
 using System.Resources;
+using System.Linq;
 
 namespace WuGanhao.Restext.Compiler {
     public class RestextStandaloneCompiler : Task {
@@ -11,8 +12,21 @@ namespace WuGanhao.Restext.Compiler {
         public override bool Execute() {
             if (this.Sources == null) return true;
 
-            foreach(ITaskItem item in this.Sources) {
+            string solutionDir = null;
+            this.BuildEngine7.GetGlobalProperties()?.TryGetValue("SolutionDir", out solutionDir);
+            Uri solutionUri = (solutionDir == null) ? null : new Uri(Path.GetFullPath(solutionDir));
+
+            foreach (ITaskItem item in this.Sources) {
                 string restext = item.ItemSpec;
+
+                if (solutionUri != null) {
+                    Uri currentRestextUri = new Uri(Path.GetFullPath(restext));
+                    if (!solutionUri.IsBaseOf(currentRestextUri)) {
+                        this.Log.LogMessage(MessageImportance.Normal, $"Skipping {restext}, out of current solution folder.");
+                        continue;
+                    }
+                }
+
                 if (!File.Exists(restext)) {
                     this.Log.LogError($"Input file {restext} not found!");
                 }

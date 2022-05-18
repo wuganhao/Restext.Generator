@@ -9,8 +9,7 @@
   </PropertyGroup>
   <Target Name="CollectRestextFiles" BeforeTargets="CoreBuild">
     <ItemGroup>
-      <RestextFiles Include="@(Content)" Condition="'%(Extension)' == '.restext'" />
-      <RestextFiles Include="@(Resource)" Condition="'%(Extension)' == '.restext'" />
+      <RestextFiles Include="$(ProjectDir)\**\*.restext" />
     </ItemGroup>
   </Target>
   <Target Name="CompileRestextFiles" BeforeTargets="CoreBuild" DependsOnTargets="CollectRestextFiles">

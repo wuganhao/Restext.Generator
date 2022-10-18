@@ -18,7 +18,10 @@ namespace WuGanhao.Restext.Compiler {
 
             foreach (ITaskItem item in this.Sources) {
                 string restext = item.ItemSpec;
-                try {
+                int lIdx = 0;
+
+                try
+                {
                     if (solutionUri != null) {
                         Uri currentRestextUri = new Uri(Path.GetFullPath(restext));
                         if (!solutionUri.IsBaseOf(currentRestextUri)) {
@@ -40,12 +43,11 @@ namespace WuGanhao.Restext.Compiler {
                     StreamReader reader = new StreamReader(restext);
 
                     string line = null;
-                    long lIdx = 0;
                     while(null != (line = reader.ReadLine())) {
                         lIdx ++;
                         int idx = line.IndexOf('=');
                         if (idx < 0) {
-                            this.Log.LogWarning($"Incorrect format at line: {lIdx}");
+                            this.Log.LogWarning("RES-GEN", "RG-001", "RG-001", item.ItemSpec, lIdx, 0, 0, 0, "Incorrect resource format");
                             continue;
                         }
                         string key = line.Substring(0, idx);
@@ -73,7 +75,7 @@ namespace WuGanhao.Restext.Compiler {
                         }
                     }
                 } catch (Exception ex) {
-                    this.Log.LogError($"Failed to compile {restext}");
+                    this.Log.LogError(subcategory:"RES-GEN", errorCode: "RG-002", helpKeyword: "RG-002", file: item.ItemSpec, lineNumber: lIdx, 0, 0, 0, ex.Message, null);
                     this.Log.LogErrorFromException(ex);
                 }
             }

@@ -2,25 +2,25 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net48;net6.0</TargetFrameworks>
     <IsPackable>True</IsPackable>
     <PackageId>Restext.Standalone.Compiler</PackageId>
     <Authors>Wu, Ganhao&lt;wuganhao@hotmail.com&gt;</Authors>
     <Title>Standalone compiler for *.restext</Title>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <PackageDescription>This package compiles all *.restext as *.resources at the same folder</PackageDescription>
-    <IsTool>True</IsTool>
-    <BuildOutputTargetFolder>build</BuildOutputTargetFolder>
-    <!--<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>-->
+    <BuildOutputTargetFolder>build\$(TargetFramework)</BuildOutputTargetFolder>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_PackageBuildTargets</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.7.0" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.11.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="restext.standalone.compiler.props" IncludeInPackage="True" Pack="True" PackagePath="build\" />
-    <None Update="restext.standalone.compiler.targets" IncludeInPackage="True" Pack="True" PackagePath="build\" />
-  </ItemGroup>
+  <Target Name="_PackageBuildTargets" >
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="build\*" Pack="True" PackagePath="build\$(TargetFramework)" />
+    </ItemGroup>
+  </Target>
 
 </Project>

@@ -11,6 +11,7 @@
     <PackageDescription>This package compiles all *.restext as *.resources at the same folder</PackageDescription>
     <BuildOutputTargetFolder>build\$(TargetFramework)</BuildOutputTargetFolder>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_PackageBuildTargets</TargetsForTfmSpecificContentInPackage>
+    <IncludeBuildOutput>False</IncludeBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +20,9 @@
 
   <Target Name="_PackageBuildTargets" >
     <ItemGroup>
-      <TfmSpecificPackageFile Include="build\*" Pack="True" PackagePath="build\$(TargetFramework)" />
+      <TfmSpecificPackageFile Include="bin\$(Configuration)\$(TargetFramework)\publish\**\*" Pack="True" PackagePath="build\$(TargetFramework)" />
+      <TfmSpecificPackageFile Include="*.props" Pack="True" PackagePath="build\$(TargetFramework)" />
+      <TfmSpecificPackageFile Include="*.targets" Pack="True" PackagePath="build\$(TargetFramework)" />
     </ItemGroup>
   </Target>
 

@@ -23,6 +23,4 @@ jobs:
 
     - name: Build
       run: |
-        dotnet publish --configuration ${{ env.Configuration }} src/restext.compiler.sln -p:Version=1.0.0 --version-suffix "build.${{ github.run_number }}" -f net48
-        dotnet publish --configuration ${{ env.Configuration }} src/restext.compiler.sln -p:Version=1.0.0 --version-suffix "build.${{ github.run_number }}" -f net6.0
-        dotnet pack    --configuration ${{ env.Configuration }} src/restext.compiler.sln -p:Version=1.0.0 --version-suffix "build.${{ github.run_number }}" -o dist --no-build
+        dotnet pack    --configuration ${{ env.Configuration }} src/restext.compiler.sln -p:Version=1.0.0 --version-suffix "build.${{ github.run_number }}" -o dist

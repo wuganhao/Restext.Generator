@@ -21,8 +21,7 @@
   <Target Name="_PackageBuildTargets" >
     <ItemGroup>
       <TfmSpecificPackageFile Include="bin\$(Configuration)\$(TargetFramework)\publish\**\*" Pack="True" PackagePath="build\$(TargetFramework)" />
-      <TfmSpecificPackageFile Include="*.props" Pack="True" PackagePath="build\$(TargetFramework)" />
-      <TfmSpecificPackageFile Include="*.targets" Pack="True" PackagePath="build\$(TargetFramework)" />
+      <TfmSpecificPackageFile Include="build\*" Pack="True" PackagePath="build\$(TargetFramework)" />
     </ItemGroup>
   </Target>
 

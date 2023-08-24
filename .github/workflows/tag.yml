@@ -7,29 +7,14 @@ on:
 
 jobs:
   build:
+    env:
+      Configuration: Release
+
     runs-on: windows-latest
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-
-    # - name: Build
-    #   run: |
-    #     export
-    #     export Tag=${GITHUB_REF/#refs\/tags\//}
-    #     export Version=${Tag/%-*/}
-    #     export InformationalVersion="$Tag+$GITHUB_SHA"
-    #     export PackageVersion=$Tag
-    #     echo "Version: $Version"
-    #     echo "Informational Version: $InformationalVersion"
-    #     echo "Package Version: $PackageVersion"
-    #     dotnet pack --configuration release src/restext.compiler.sln -o dist -p:AssemblyVersion=$Version -p:FileVersion=$Version -p:InformationalVersion=$InformationalVersion -p:PackageVersion=$Tag
-
-    # - name: Push
-    #   run: |
-    #     for f in dist/*.nupkg; do
-    #       dotnet nuget push --api-key ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json $f;
-    #     done
 
     - name: Build
       run: |
@@ -40,7 +25,9 @@ jobs:
         echo "Version: $Tag"
         echo "Informational Version: $InformationalVersion"
         echo "Package Version: $PackageVersion"
-        dotnet pack --configuration release src/restext.compiler.sln -o dist -p:AssemblyVersion=$Version -p:FileVersion=$Version -p:InformationalVersion=$InformationalVersion -p:PackageVersion=$Tag
+        dotnet publish --configuration ${{ env.Configuration }} src/restext.compiler.sln -p:AssemblyVersion=$Version -p:FileVersion=$Version -p:InformationalVersion=$InformationalVersion -p:PackageVersion=$Tag -f net48
+        dotnet publish --configuration ${{ env.Configuration }} src/restext.compiler.sln -p:AssemblyVersion=$Version -p:FileVersion=$Version -p:InformationalVersion=$InformationalVersion -p:PackageVersion=$Tag -f net6.0
+        dotnet pack    --configuration ${{ env.Configuration }} src/restext.compiler.sln -p:AssemblyVersion=$Version -p:FileVersion=$Version -p:InformationalVersion=$InformationalVersion -p:PackageVersion=$Tag -o dist --no-build
 
     - name: Push
       run: |

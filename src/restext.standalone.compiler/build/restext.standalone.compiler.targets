@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <RestextStandaloneCompilerAssembly>$(MSBuildThisFileDirectory)\restext.standalone.compiler.dll</RestextStandaloneCompilerAssembly>
+    <RestextStandaloneCompilerAssembly>$(MSBuildThisFileDirectory)..\tasks\restext.standalone.compiler.dll</RestextStandaloneCompilerAssembly>
   </PropertyGroup>
   <UsingTask AssemblyFile="$(RestextStandaloneCompilerAssembly)" TaskName="RestextStandaloneCompiler" />
   <PropertyGroup>
@@ -13,6 +13,7 @@
     </ItemGroup>
   </Target>
   <Target Name="CompileRestextFiles" BeforeTargets="CoreBuild" DependsOnTargets="CollectRestextFiles">
+    <Message Importance="high" Text="Running ===>>> $(RestextStandaloneCompilerAssembly)" />
     <RestextStandaloneCompiler Sources="@(RestextFiles)" DefaultCulture="$(DefaultCulture)"/>
   </Target>
 </Project>

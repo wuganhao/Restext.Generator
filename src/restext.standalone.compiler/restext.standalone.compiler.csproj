@@ -2,26 +2,34 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net48;net6.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <IsPackable>True</IsPackable>
     <PackageId>Restext.Standalone.Compiler</PackageId>
     <Authors>Wu, Ganhao&lt;wuganhao@hotmail.com&gt;</Authors>
     <Title>Standalone compiler for *.restext</Title>
     <LangVersion>latest</LangVersion>
     <PackageDescription>This package compiles all *.restext as *.resources at the same folder</PackageDescription>
-    <BuildOutputTargetFolder>build\$(TargetFramework)</BuildOutputTargetFolder>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_PackageBuildTargets</TargetsForTfmSpecificContentInPackage>
     <IncludeBuildOutput>False</IncludeBuildOutput>
+    <GenerateDependencyFile>true</GenerateDependencyFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <IsPublishable>False</IsPublishable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.11.0" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.11.0" PrivateAssets="all" ExcludeAssets="Runtime" />
   </ItemGroup>
 
-  <Target Name="_PackageBuildTargets" >
+  <Target Name="_PackageBuildTargets">
     <ItemGroup>
-      <TfmSpecificPackageFile Include="bin\$(Configuration)\$(TargetFramework)\publish\**\*" Pack="True" PackagePath="build\$(TargetFramework)" />
-      <TfmSpecificPackageFile Include="build\*" Pack="True" PackagePath="build\$(TargetFramework)" />
+      <TfmSpecificPackageFile Include="bin\$(Configuration)\$(TargetFramework)\**\*" Pack="True" PackagePath="tasks" />
+      <TfmSpecificPackageFile Include="build\*" Pack="True" PackagePath="build;buildMultiTargeting" />
     </ItemGroup>
   </Target>
 

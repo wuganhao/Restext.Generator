@@ -25,9 +25,7 @@ jobs:
         echo "Version: $Tag"
         echo "Informational Version: $InformationalVersion"
         echo "Package Version: $PackageVersion"
-        dotnet publish --configuration ${{ env.Configuration }} src/restext.compiler.sln -p:AssemblyVersion=$Version -p:FileVersion=$Version -p:InformationalVersion=$InformationalVersion -p:PackageVersion=$Tag -f net48
-        dotnet publish --configuration ${{ env.Configuration }} src/restext.compiler.sln -p:AssemblyVersion=$Version -p:FileVersion=$Version -p:InformationalVersion=$InformationalVersion -p:PackageVersion=$Tag -f net6.0
-        dotnet pack    --configuration ${{ env.Configuration }} src/restext.compiler.sln -p:AssemblyVersion=$Version -p:FileVersion=$Version -p:InformationalVersion=$InformationalVersion -p:PackageVersion=$Tag -o dist --no-build
+        dotnet pack    --configuration ${{ env.Configuration }} src/restext.compiler.sln -p:AssemblyVersion=$Version -p:FileVersion=$Version -p:InformationalVersion=$InformationalVersion -p:PackageVersion=$Tag -o dist
 
     - name: Push
       run: |

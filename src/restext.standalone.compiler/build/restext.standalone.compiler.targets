@@ -13,7 +13,6 @@
     </ItemGroup>
   </Target>
   <Target Name="CompileRestextFiles" BeforeTargets="CoreBuild" DependsOnTargets="CollectRestextFiles">
-    <Message Importance="high" Text="Running ===>>> $(RestextStandaloneCompilerAssembly)" />
     <RestextStandaloneCompiler Sources="@(RestextFiles)" DefaultCulture="$(DefaultCulture)"/>
   </Target>
 </Project>

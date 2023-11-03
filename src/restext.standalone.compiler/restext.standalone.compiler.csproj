@@ -16,6 +16,7 @@
     <IsPublishable>False</IsPublishable>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <PackageReadmeFile>docs\README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -30,6 +31,7 @@
     <ItemGroup>
       <TfmSpecificPackageFile Include="bin\$(Configuration)\$(TargetFramework)\**\*" Pack="True" PackagePath="tasks" />
       <TfmSpecificPackageFile Include="build\*" Pack="True" PackagePath="build;buildMultiTargeting" />
+      <TfmSpecificPackageFile Include="docs\*" Pack="True" PackagePath="docs" />
     </ItemGroup>
   </Target>
 

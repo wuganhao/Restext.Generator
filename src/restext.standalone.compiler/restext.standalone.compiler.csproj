@@ -24,6 +24,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\README.md" Link="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.11.0" PrivateAssets="all" ExcludeAssets="Runtime" />
   </ItemGroup>
 
@@ -31,7 +35,7 @@
     <ItemGroup>
       <TfmSpecificPackageFile Include="bin\$(Configuration)\$(TargetFramework)\**\*" Pack="True" PackagePath="tasks" />
       <TfmSpecificPackageFile Include="build\*" Pack="True" PackagePath="build;buildMultiTargeting" />
-      <TfmSpecificPackageFile Include="docs\*" Pack="True" PackagePath="docs" />
+      <TfmSpecificPackageFile Include="..\..\README.md" Pack="True" PackagePath="docs" />
     </ItemGroup>
   </Target>
 

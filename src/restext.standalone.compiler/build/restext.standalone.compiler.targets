@@ -9,7 +9,7 @@
   </PropertyGroup>
   <Target Name="CollectRestextFiles" BeforeTargets="CoreBuild">
     <ItemGroup>
-      <RestextFiles Include="$(ProjectDir)\**\*.restext" />
+      <RestextFiles Include="$(ProjectDir)\**\*.restext" Exclude="$(ProjectDir)\bin\**\*;$(ProjectDir)\obj\**\*" />
     </ItemGroup>
   </Target>
   <Target Name="CompileRestextFiles" BeforeTargets="CoreBuild" DependsOnTargets="CollectRestextFiles">

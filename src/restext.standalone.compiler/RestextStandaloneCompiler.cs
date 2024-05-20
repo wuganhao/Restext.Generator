@@ -18,6 +18,7 @@ public class RestextStandaloneCompiler : Task {
         this.BuildEngine7.GetGlobalProperties()?.TryGetValue("SolutionDir", out solutionDir);
         Uri solutionUri = (solutionDir == null) ? null : new Uri(Path.GetFullPath(solutionDir));
 
+        bool error = false;
         foreach (ITaskItem item in this.Sources) {
             string restext = item.ItemSpec;
             int lIdx = 0;
@@ -45,7 +46,6 @@ public class RestextStandaloneCompiler : Task {
                 Dictionary<string, string> dict = new();
 
                 string line = null;
-                bool error = false;
                 using (StreamReader reader = new StreamReader(restext)) {
                     while(null != (line = reader.ReadLine())) {
                         lIdx ++;
@@ -74,7 +74,7 @@ public class RestextStandaloneCompiler : Task {
                 }
 
                 if (error) {
-                    return false;
+                    continue;
                 }
 
                 foreach (var kvp in dict) {
@@ -108,11 +108,12 @@ public class RestextStandaloneCompiler : Task {
                     }
                 }
             } catch (Exception ex) {
+                error = true;
                 this.Log.LogError(subcategory:"RES-GEN", errorCode: "RG-002", helpKeyword: "RG-002", file: item.ItemSpec, lineNumber: lIdx, 0, 0, 0, ex.Message, null);
                 this.Log.LogErrorFromException(ex);
             }
         }
 
-        return true;
+        return !error;
     }
 }

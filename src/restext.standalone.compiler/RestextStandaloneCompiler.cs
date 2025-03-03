@@ -88,7 +88,7 @@ public class RestextStandaloneCompiler : Task {
                 ous.Flush();
 
                 using (StreamWriter restextWriter = new StreamWriter(restext)) {
-                    foreach ( var key in dict.Keys.OrderBy(x => x, StringComparer.InvariantCultureIgnoreCase)) {
+                    foreach ( var key in dict.Keys.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)) {
                         string value = dict[key];
                         restextWriter.WriteLine($"{key}={value}");
                     }
